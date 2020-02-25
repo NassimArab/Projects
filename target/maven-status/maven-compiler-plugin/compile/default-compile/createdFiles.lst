@@ -1,0 +1,12 @@
+fil/car/ProcessRMD.class
+fil/car/ProcessRETR.class
+fil/car/ProcessCWD.class
+fil/car/ProcessQuit.class
+fil/car/ProcessPass.class
+fil/car/ProcessPASV.class
+fil/car/ProcessPWD.class
+fil/car/ProcessSTOR.class
+fil/car/ProcessPORT.class
+fil/car/Users.class
+fil/car/ProcessLIST.class
+fil/car/ProcessCDUP.class
