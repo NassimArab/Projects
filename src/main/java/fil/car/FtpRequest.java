@@ -13,6 +13,7 @@ public class FtpRequest implements Runnable{
 
 	/**
 	* @author Nassim ARAB
+	* @author Mohamed CHABANE
 	*/
 	private static Socket socket;
 	private ServerSocket serverSocket;
@@ -30,11 +31,12 @@ public class FtpRequest implements Runnable{
 	private String Adresse;
 	private BufferedReader inClient;
 	private PrintWriter outClient;
+	private String aModifier ="";
 	    public FtpRequest(Socket socket) throws IOException {
 	    	this.users = new Users();
 	    	this.socket = socket;
 	    	this.userConnec = "";
-			this.users.SetUsers();
+			//this.users.SetUsers();
 			this.osrp = new OutputStreamReaderProxy(socket.getOutputStream());
 	    	
 	    	
@@ -147,11 +149,27 @@ public class FtpRequest implements Runnable{
 	            	this.Out.println(pSTOR.process());
 	              	break;
 	            case "RMD":
-	            	System.out.println("bef" + this.PatchActu);
 	            	ProcessRMD pRMD = new ProcessRMD(resReq[1],this.PatchActu, this.osrp, this.isConnected);
-	            	System.out.println("aft" + this.PatchActu);
 	            	this.PatchActu = pRMD.getPath();
 	            	this.Out.println(pRMD.process());
+	              	break;
+	            case "RNFR":
+	            	ProcessRNFR pRNFR = new ProcessRNFR(resReq[1],this.PatchActu, this.osrp, this.isConnected);
+	            	aModifier = pRNFR.getPath();
+	            	this.Out.println(pRNFR.process());
+	              	break;
+	            case "RNTO":
+	            	ProcessRNTO pRNTO = new ProcessRNTO(resReq[1],aModifier,this.PatchActu, this.osrp, this.isConnected);
+	            	this.Out.println(pRNTO.process());
+	              	break;
+	            case "DELE":
+	            	ProcessDELE pDELE = new ProcessDELE(resReq[1],this.PatchActu, this.osrp, this.isConnected);
+	            	this.PatchActu = pDELE.getPath();
+	            	this.Out.println(pDELE.process());
+	              	break;
+	            case "MKD":
+	            	ProcessMKD pMKD= new ProcessMKD(resReq[1],this.osrp,this.PatchActu, this.isConnected);
+	            	this.Out.println(pMKD.process());
 	              	break;
 	            case "TYPE":
 	            	this.Out.println(200 + "   ");

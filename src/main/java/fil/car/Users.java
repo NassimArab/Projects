@@ -10,6 +10,9 @@ import java.util.HashMap;
 public class Users {
 	private HashMap<String, String> users = new HashMap<String, String>();
 	
+	public Users() {
+		users.put("nassim","nassim");
+	}
 	/**
 	* ajouter un user dans la table
 	*@param user le nom d'utilisateur
